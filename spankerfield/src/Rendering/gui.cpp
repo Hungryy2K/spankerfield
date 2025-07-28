@@ -15,165 +15,250 @@ namespace big
 	{
 		auto& style = ImGui::GetStyle();
 
-		// Basic style settings
-		style.WindowPadding = { 8.f, 8.f };
-		style.PopupRounding = 0.f;
-		style.FramePadding = { 4.f, 3.f };
-		style.ItemSpacing = { 6.5f, 4.5f };
-		style.ItemInnerSpacing = { 5.5f, 5.5f };
+		// Modern spacing and padding
+		style.WindowPadding = { 12.f, 12.f };
+		style.PopupRounding = 6.f;
+		style.FramePadding = { 8.f, 6.f };
+		style.ItemSpacing = { 8.f, 6.f };
+		style.ItemInnerSpacing = { 6.f, 6.f };
 		style.TouchExtraPadding = { 0.f, 0.f };
-		style.IndentSpacing = 20.f;
-		style.ScrollbarSize = 10.f;
-		style.GrabMinSize = 6.f;
+		style.IndentSpacing = 24.f;
+		style.ScrollbarSize = 12.f;
+		style.GrabMinSize = 8.f;
 
-		// No rounded corners for a less glossy look
-		style.WindowRounding = 0.f;
-		style.ChildRounding = 0.f;
-		style.FrameRounding = 0.f;
-		style.PopupRounding = 0.f;
-		style.ScrollbarRounding = 0.f;
-		style.GrabRounding = 0.f;
-		style.TabRounding = 0.f;
+		// Modern rounded corners
+		style.WindowRounding = 8.f;
+		style.ChildRounding = 6.f;
+		style.FrameRounding = 4.f;
+		style.PopupRounding = 6.f;
+		style.ScrollbarRounding = 6.f;
+		style.GrabRounding = 4.f;
+		style.TabRounding = 4.f;
 
-		// Minimal borders for a matte look
+		// Subtle borders
 		style.WindowBorderSize = 1.f;
-		style.ChildBorderSize = 0.f;
+		style.ChildBorderSize = 1.f;
 		style.PopupBorderSize = 1.f;
-		style.FrameBorderSize = 1.f;
+		style.FrameBorderSize = 0.f;
 		style.TabBorderSize = 0.f;
 
 		style.WindowTitleAlign = { 0.5f, 0.5f };
 		style.ButtonTextAlign = { 0.5f, 0.5f };
 
-		// Colors
+		// Modern color palette
 		ImVec4* colors = style.Colors;
 
-		// Defining key colors
-		ImVec4 greenHighlight = ImVec4(0.22f, 0.69f, 0.2f, 1.00f);          // Green for active tab
-		ImVec4 darkBg = ImVec4(0.10f, 0.10f, 0.10f, 0.95f);                 // Increased alpha for less transparency
-		ImVec4 mediumBg = ImVec4(0.14f, 0.14f, 0.14f, 0.95f);               // Less transparent medium gray
-		ImVec4 deepBlueCheck = ImVec4(0.10f, 0.50f, 1.00f, 1.00f);          // Deeper blue for checkmarks
+		// Modern color definitions
+		ImVec4 primaryBlue = ImVec4(0.20f, 0.60f, 1.00f, 1.00f);
+		ImVec4 primaryGreen = ImVec4(0.20f, 0.80f, 0.40f, 1.00f);
+		ImVec4 accentOrange = ImVec4(1.00f, 0.60f, 0.20f, 1.00f);
+		ImVec4 darkBg = ImVec4(0.08f, 0.08f, 0.12f, 0.98f);
+		ImVec4 mediumBg = ImVec4(0.12f, 0.12f, 0.16f, 0.98f);
+		ImVec4 lightBg = ImVec4(0.16f, 0.16f, 0.20f, 0.98f);
+		ImVec4 borderColor = ImVec4(0.25f, 0.25f, 0.30f, 0.60f);
 
 		// Window and background colors
 		colors[ImGuiCol_WindowBg] = darkBg;
-		colors[ImGuiCol_ChildBg] = ImVec4(0.12f, 0.12f, 0.12f, 0.00f);
-		colors[ImGuiCol_PopupBg] = ImVec4(0.08f, 0.08f, 0.08f, 0.95f);
-		colors[ImGuiCol_Border] = ImVec4(0.30f, 0.30f, 0.30f, 0.50f);
+		colors[ImGuiCol_ChildBg] = ImVec4(0.10f, 0.10f, 0.14f, 0.00f);
+		colors[ImGuiCol_PopupBg] = ImVec4(0.08f, 0.08f, 0.12f, 0.98f);
+		colors[ImGuiCol_Border] = borderColor;
 		colors[ImGuiCol_BorderShadow] = ImVec4(0.00f, 0.00f, 0.00f, 0.00f);
 
-		// Text colors
-		colors[ImGuiCol_Text] = ImVec4(0.90f, 0.90f, 0.90f, 1.00f);         // Slightly off-white for less harsh contrast
-		colors[ImGuiCol_TextDisabled] = ImVec4(0.50f, 0.50f, 0.50f, 1.00f);
-		colors[ImGuiCol_TextSelectedBg] = ImVec4(0.20f, 0.40f, 0.70f, 0.35f);
+		// Text colors with better contrast
+		colors[ImGuiCol_Text] = ImVec4(0.95f, 0.95f, 0.95f, 1.00f);
+		colors[ImGuiCol_TextDisabled] = ImVec4(0.50f, 0.50f, 0.55f, 1.00f);
+		colors[ImGuiCol_TextSelectedBg] = ImVec4(0.20f, 0.60f, 1.00f, 0.35f);
 
-		// Frame colors (for checkboxes, etc.) - more matte look
-		colors[ImGuiCol_FrameBg] = ImVec4(0.18f, 0.18f, 0.18f, 1.00f);      // Solid color instead of transparent
-		colors[ImGuiCol_FrameBgHovered] = ImVec4(0.22f, 0.22f, 0.22f, 1.00f);
-		colors[ImGuiCol_FrameBgActive] = ImVec4(0.24f, 0.24f, 0.24f, 1.00f);
+		// Modern frame colors
+		colors[ImGuiCol_FrameBg] = lightBg;
+		colors[ImGuiCol_FrameBgHovered] = ImVec4(0.20f, 0.20f, 0.24f, 1.00f);
+		colors[ImGuiCol_FrameBgActive] = ImVec4(0.22f, 0.22f, 0.26f, 1.00f);
 
-		// Tabs - match with EngineOwning style but less glossy
+		// Modern tab colors
 		colors[ImGuiCol_Tab] = mediumBg;
-		colors[ImGuiCol_TabHovered] = ImVec4(0.22f, 0.22f, 0.22f, 0.95f);
-		colors[ImGuiCol_TabActive] = greenHighlight;
+		colors[ImGuiCol_TabHovered] = ImVec4(0.18f, 0.18f, 0.22f, 0.98f);
+		colors[ImGuiCol_TabActive] = primaryBlue;
 		colors[ImGuiCol_TabUnfocused] = mediumBg;
-		colors[ImGuiCol_TabUnfocusedActive] = ImVec4(0.18f, 0.18f, 0.18f, 0.95f);
+		colors[ImGuiCol_TabUnfocusedActive] = ImVec4(0.16f, 0.16f, 0.20f, 0.98f);
 
-		// Checkmark color - deeper blue
-		colors[ImGuiCol_CheckMark] = deepBlueCheck;
+		// Modern checkmark color
+		colors[ImGuiCol_CheckMark] = primaryGreen;
 
-		// Title bar - darker, more matte look
-		colors[ImGuiCol_TitleBg] = ImVec4(0.08f, 0.08f, 0.08f, 0.95f);
-		colors[ImGuiCol_TitleBgActive] = ImVec4(0.12f, 0.12f, 0.12f, 0.95f);
-		colors[ImGuiCol_TitleBgCollapsed] = ImVec4(0.08f, 0.08f, 0.08f, 0.90f);
+		// Modern title bar
+		colors[ImGuiCol_TitleBg] = ImVec4(0.06f, 0.06f, 0.10f, 0.98f);
+		colors[ImGuiCol_TitleBgActive] = ImVec4(0.10f, 0.10f, 0.14f, 0.98f);
+		colors[ImGuiCol_TitleBgCollapsed] = ImVec4(0.06f, 0.06f, 0.10f, 0.90f);
 
-		// Button colors - flat, matte appearance
-		colors[ImGuiCol_Button] = ImVec4(0.18f, 0.18f, 0.18f, 1.00f);       // Solid color for matte look
-		colors[ImGuiCol_ButtonHovered] = ImVec4(0.22f, 0.22f, 0.22f, 1.00f);
-		colors[ImGuiCol_ButtonActive] = ImVec4(0.25f, 0.25f, 0.25f, 1.00f);
+		// Modern button colors
+		colors[ImGuiCol_Button] = lightBg;
+		colors[ImGuiCol_ButtonHovered] = ImVec4(0.20f, 0.20f, 0.24f, 1.00f);
+		colors[ImGuiCol_ButtonActive] = ImVec4(0.22f, 0.22f, 0.26f, 1.00f);
 
-		// Other elements - keeping consistent with matte dark theme
-		colors[ImGuiCol_Header] = ImVec4(0.18f, 0.18f, 0.18f, 1.00f);
-		colors[ImGuiCol_HeaderHovered] = ImVec4(0.22f, 0.22f, 0.22f, 1.00f);
-		colors[ImGuiCol_HeaderActive] = ImVec4(0.25f, 0.25f, 0.25f, 1.00f);
-		colors[ImGuiCol_Separator] = ImVec4(0.30f, 0.30f, 0.30f, 0.50f);
-		colors[ImGuiCol_SeparatorHovered] = ImVec4(0.40f, 0.40f, 0.40f, 0.50f);
-		colors[ImGuiCol_SeparatorActive] = ImVec4(0.45f, 0.45f, 0.45f, 0.50f);
-		colors[ImGuiCol_ResizeGrip] = ImVec4(0.20f, 0.20f, 0.20f, 0.25f);
-		colors[ImGuiCol_ResizeGripHovered] = ImVec4(0.20f, 0.20f, 0.20f, 0.50f);
-		colors[ImGuiCol_ResizeGripActive] = ImVec4(0.20f, 0.20f, 0.20f, 0.70f);
-		colors[ImGuiCol_PlotLines] = ImVec4(0.50f, 0.50f, 0.50f, 1.00f);
-		colors[ImGuiCol_PlotLinesHovered] = ImVec4(0.90f, 0.40f, 0.35f, 1.00f);
-		colors[ImGuiCol_PlotHistogram] = ImVec4(0.80f, 0.60f, 0.00f, 1.00f);
-		colors[ImGuiCol_PlotHistogramHovered] = ImVec4(0.90f, 0.55f, 0.00f, 1.00f);
-		colors[ImGuiCol_DragDropTarget] = ImVec4(0.90f, 0.90f, 0.00f, 0.90f);
-		colors[ImGuiCol_NavHighlight] = ImVec4(0.20f, 0.40f, 0.70f, 1.00f);
-		colors[ImGuiCol_NavWindowingHighlight] = ImVec4(0.90f, 0.90f, 0.90f, 0.70f);
-		colors[ImGuiCol_NavWindowingDimBg] = ImVec4(0.20f, 0.20f, 0.20f, 0.20f);
-		colors[ImGuiCol_ModalWindowDimBg] = ImVec4(0.20f, 0.20f, 0.20f, 0.35f);
+		// Modern header colors
+		colors[ImGuiCol_Header] = lightBg;
+		colors[ImGuiCol_HeaderHovered] = ImVec4(0.20f, 0.20f, 0.24f, 1.00f);
+		colors[ImGuiCol_HeaderActive] = ImVec4(0.22f, 0.22f, 0.26f, 1.00f);
+		
+		// Enhanced separator and scrollbar colors
+		colors[ImGuiCol_Separator] = borderColor;
+		colors[ImGuiCol_SeparatorHovered] = ImVec4(0.30f, 0.30f, 0.35f, 0.78f);
+		colors[ImGuiCol_SeparatorActive] = ImVec4(0.35f, 0.35f, 0.40f, 1.00f);
+		
+		// Enhanced scrollbar colors
+		colors[ImGuiCol_ScrollbarBg] = ImVec4(0.06f, 0.06f, 0.10f, 0.60f);
+		colors[ImGuiCol_ScrollbarGrab] = ImVec4(0.25f, 0.25f, 0.30f, 0.60f);
+		colors[ImGuiCol_ScrollbarGrabHovered] = ImVec4(0.30f, 0.30f, 0.35f, 0.80f);
+		colors[ImGuiCol_ScrollbarGrabActive] = ImVec4(0.35f, 0.35f, 0.40f, 1.00f);
+		
+		// Enhanced resize grip colors
+		colors[ImGuiCol_ResizeGrip] = ImVec4(0.25f, 0.25f, 0.30f, 0.60f);
+		colors[ImGuiCol_ResizeGripHovered] = ImVec4(0.30f, 0.30f, 0.35f, 0.80f);
+		colors[ImGuiCol_ResizeGripActive] = ImVec4(0.35f, 0.35f, 0.40f, 1.00f);
+		
+		// Enhanced plot colors
+		colors[ImGuiCol_PlotLines] = primaryBlue;
+		colors[ImGuiCol_PlotLinesHovered] = ImVec4(0.25f, 0.70f, 1.10f, 1.00f);
+		colors[ImGuiCol_PlotHistogram] = primaryGreen;
+		colors[ImGuiCol_PlotHistogramHovered] = ImVec4(0.25f, 0.90f, 0.50f, 1.00f);
+		
+		// Enhanced drag drop colors
+		colors[ImGuiCol_DragDropTarget] = ImVec4(0.20f, 0.60f, 1.00f, 0.90f);
+		
+		// Enhanced navigation colors
+		colors[ImGuiCol_NavHighlight] = ImVec4(0.20f, 0.60f, 1.00f, 0.80f);
+		colors[ImGuiCol_NavWindowingHighlight] = ImVec4(0.20f, 0.60f, 1.00f, 0.70f);
+		colors[ImGuiCol_NavWindowingDimBg] = ImVec4(0.00f, 0.00f, 0.00f, 0.35f);
+		
+		// Enhanced modal window colors
+		colors[ImGuiCol_ModalWindowDimBg] = ImVec4(0.00f, 0.00f, 0.00f, 0.35f);
+		
+		// Enhanced slider colors
+		colors[ImGuiCol_SliderGrab] = primaryBlue;
+		colors[ImGuiCol_SliderGrabActive] = ImVec4(0.25f, 0.70f, 1.10f, 1.00f);
+		
+		// Modern separator colors
+		colors[ImGuiCol_Separator] = borderColor;
+		colors[ImGuiCol_SeparatorHovered] = ImVec4(0.35f, 0.35f, 0.40f, 0.60f);
+		colors[ImGuiCol_SeparatorActive] = ImVec4(0.40f, 0.40f, 0.45f, 0.60f);
+		
+		// Modern resize grip
+		colors[ImGuiCol_ResizeGrip] = ImVec4(0.20f, 0.20f, 0.24f, 0.25f);
+		colors[ImGuiCol_ResizeGripHovered] = ImVec4(0.25f, 0.25f, 0.29f, 0.50f);
+		colors[ImGuiCol_ResizeGripActive] = ImVec4(0.30f, 0.30f, 0.34f, 0.70f);
+		
+		// Modern plot colors
+		colors[ImGuiCol_PlotLines] = primaryBlue;
+		colors[ImGuiCol_PlotLinesHovered] = accentOrange;
+		colors[ImGuiCol_PlotHistogram] = primaryGreen;
+		colors[ImGuiCol_PlotHistogramHovered] = accentOrange;
+		
+		// Modern drag drop and navigation
+		colors[ImGuiCol_DragDropTarget] = primaryGreen;
+		colors[ImGuiCol_NavHighlight] = primaryBlue;
+		colors[ImGuiCol_NavWindowingHighlight] = ImVec4(0.95f, 0.95f, 0.95f, 0.70f);
+		colors[ImGuiCol_NavWindowingDimBg] = ImVec4(0.20f, 0.20f, 0.24f, 0.20f);
+		colors[ImGuiCol_ModalWindowDimBg] = ImVec4(0.20f, 0.20f, 0.24f, 0.35f);
 
-		// Slider/scrollbar colors - more solid/matte
-		colors[ImGuiCol_SliderGrab] = ImVec4(0.25f, 0.25f, 0.25f, 1.00f);
-		colors[ImGuiCol_SliderGrabActive] = ImVec4(0.28f, 0.28f, 0.28f, 1.00f);
-		colors[ImGuiCol_ScrollbarBg] = ImVec4(0.15f, 0.15f, 0.15f, 1.00f);
-		colors[ImGuiCol_ScrollbarGrab] = ImVec4(0.25f, 0.25f, 0.25f, 1.00f);
-		colors[ImGuiCol_ScrollbarGrabHovered] = ImVec4(0.28f, 0.28f, 0.28f, 1.00f);
-		colors[ImGuiCol_ScrollbarGrabActive] = ImVec4(0.30f, 0.30f, 0.30f, 1.00f);
+		// Modern slider/scrollbar colors
+		colors[ImGuiCol_SliderGrab] = primaryBlue;
+		colors[ImGuiCol_SliderGrabActive] = ImVec4(0.25f, 0.65f, 1.00f, 1.00f);
+		colors[ImGuiCol_ScrollbarBg] = ImVec4(0.12f, 0.12f, 0.16f, 1.00f);
+		colors[ImGuiCol_ScrollbarGrab] = lightBg;
+		colors[ImGuiCol_ScrollbarGrabHovered] = ImVec4(0.20f, 0.20f, 0.24f, 1.00f);
+		colors[ImGuiCol_ScrollbarGrabActive] = ImVec4(0.22f, 0.22f, 0.26f, 1.00f);
 
-		ImGui::SetNextWindowSize(ImVec2(850, 750));
+		ImGui::SetNextWindowSize(ImVec2(900, 800));
 	}
 
 	void gui::dx_on_tick()
 	{
 		if (ImGui::Begin(xorstr_("Spankerfield"), nullptr, ImGuiWindowFlags_NoCollapse))
 		{
+			// Modern tab bar with better styling
+			ImGui::PushStyleVar(ImGuiStyleVar_TabRounding, 6.0f);
 			ImGui::BeginTabBar(xorstr_("Tab bar"));
+			ImGui::PopStyleVar();
 
-			if (ImGui::BeginTabItem(xorstr_("Aimbot")))
+			if (ImGui::BeginTabItem(xorstr_("🎯 Aimbot")))
 			{
-				ImGui::Checkbox(xorstr_("Aimbot"), &g_settings.aimbot);
-				ImGui::Checkbox(xorstr_("Vehicle aimbot"), &g_settings.aimbot_vehicle);
+				// Modern section header
+				ImGui::PushStyleColor(ImGuiCol_Text, ImVec4(0.20f, 0.60f, 1.00f, 1.00f));
+				ImGui::Text(xorstr_("Aimbot Configuration"));
+				ImGui::PopStyleColor();
+				ImGui::Separator();
+				ImGui::Spacing();
+
+				// Main aimbot settings in a modern layout
+				ImGui::BeginGroup();
+				ImGui::Text(xorstr_("Core Settings"));
+				ImGui::Spacing();
+				
+				ImGui::Checkbox(xorstr_("Enable Aimbot"), &g_settings.aimbot);
+				ImGui::Checkbox(xorstr_("Vehicle Aimbot"), &g_settings.aimbot_vehicle);
 				if (ImGui::IsItemHovered())
 					ImGui::SetTooltip(xorstr_("This will activate the aimbot when you're inside vehicles."));
-				ImGui::Checkbox(xorstr_("Snap to target"), &g_settings.aimbot_snap_to_target);
+				ImGui::Checkbox(xorstr_("Snap to Target"), &g_settings.aimbot_snap_to_target);
 				if (ImGui::IsItemHovered())
 					ImGui::SetTooltip(xorstr_("This will make the cheat automatically aim at your enemies."));
 				if (!g_settings.aimbot_snap_to_target)
 					ImGui::WarningTooltip(xorstr_("Make sure you use the draw aim point with this, if not then it's better to disable aimbot at all."));
-				ImGui::Checkbox(xorstr_("Support non-standart weapons"), &g_settings.aimbot_non_standart);
+				ImGui::Checkbox(xorstr_("Support Non-Standard Weapons"), &g_settings.aimbot_non_standart);
 				if (ImGui::IsItemHovered())
 					ImGui::SetTooltip(xorstr_("This will make the prediction of the aimbot support weapons like Rocket Launchers."));
 				
 				if (g_settings.aimbot_snap_to_target)
 				    ImGui::WarningTooltip(xorstr_("Snap to target won't work with these weapons."));
+				ImGui::EndGroup();
 
-				ImGui::Checkbox(xorstr_("FOV target selection"), &g_settings.aim_fov_method);
-				ImGui::Checkbox(xorstr_("Target must be visible"), &g_settings.aim_must_be_visible);
+				ImGui::SameLine();
+
+				// Advanced settings in a separate column
+				ImGui::BeginGroup();
+				ImGui::Text(xorstr_("Advanced Settings"));
+				ImGui::Spacing();
+				
+				ImGui::Checkbox(xorstr_("FOV Target Selection"), &g_settings.aim_fov_method);
+				ImGui::Checkbox(xorstr_("Target Must Be Visible"), &g_settings.aim_must_be_visible);
 				if (ImGui::IsItemHovered())
 					ImGui::SetTooltip(xorstr_("This option decides whether to lock on targets without them being fully visible to you."));
 				ImGui::WarningTooltip(xorstr_("There is a PBSS/BF4DB risk while having this off, play clean if you are using this"));
-				ImGui::Checkbox(xorstr_("Don't aim while reloading"), &g_settings.aim_must_not_reload);
+				ImGui::Checkbox(xorstr_("Don't Aim While Reloading"), &g_settings.aim_must_not_reload);
 				if (ImGui::IsItemHovered())
 					ImGui::SetTooltip(xorstr_("Will not aim at enemies if your weapon is reloading."));
-				ImGui::Checkbox(xorstr_("Ignore friends"), &g_settings.aim_ignore_friends);
+				ImGui::Checkbox(xorstr_("Ignore Friends"), &g_settings.aim_ignore_friends);
 				if (ImGui::IsItemHovered())
 					ImGui::SetTooltip(xorstr_("Will not aim at players that are in your friends list."));
+				ImGui::EndGroup();
 
+				ImGui::Spacing();
 				ImGui::Separator();
+				ImGui::Spacing();
 
-				ImGui::Checkbox(xorstr_("Draw aim point"), &g_settings.esp_draw_aim_point);
+				// Visual settings section
+				ImGui::PushStyleColor(ImGuiCol_Text, ImVec4(0.20f, 0.80f, 0.40f, 1.00f));
+				ImGui::Text(xorstr_("Visual Settings"));
+				ImGui::PopStyleColor();
+				ImGui::Separator();
+				ImGui::Spacing();
+
+				ImGui::Checkbox(xorstr_("Draw Aim Point"), &g_settings.esp_draw_aim_point);
 
 				if (g_settings.esp_draw_aim_point)
 				{
+					ImGui::Indent(20.0f);
 					ImGui::PushItemWidth(300.f);
-					ImGui::SliderFloat(xorstr_("Point scale##AP"), &g_settings.esp_aim_point_size, 0.1f, 10.f);
+					ImGui::SliderFloat(xorstr_("Point Scale##AP"), &g_settings.esp_aim_point_size, 0.1f, 10.f);
 					ImGui::PopItemWidth();
 
-					color_wrapper(xorstr_("Point color##AP"), &g_settings.esp_aim_point_color);
+					color_wrapper(xorstr_("Point Color##AP"), &g_settings.esp_aim_point_color);
+					ImGui::Unindent(20.0f);
 				}
 
 				if (g_settings.aim_fov_method)
 				{
+					ImGui::Spacing();
 					ImGui::Separator();
+					ImGui::Spacing();
 
 					ImGui::Checkbox(xorstr_("Draw FOV"), &g_settings.aim_draw_fov);
 
@@ -184,26 +269,45 @@ namespace big
 					if (g_settings.aim_fov >= 80.f)
 						ImGui::WarningTooltip(xorstr_("Having FOV this high might get you banned."));
 
-					color_wrapper(xorstr_("FOV color##FOV"), &g_settings.aim_fov_color);
-
-					ImGui::Separator();
+					color_wrapper(xorstr_("FOV Color##FOV"), &g_settings.aim_fov_color);
 				}
 
-				render_hotkey_selector(xorstr_("Aim key"), &g_settings.aim_key, 200.f, false);
+				ImGui::Spacing();
+				ImGui::Separator();
+				ImGui::Spacing();
 
-				// Controller support
+				// Control settings
+				ImGui::PushStyleColor(ImGuiCol_Text, ImVec4(1.00f, 0.60f, 0.20f, 1.00f));
+				ImGui::Text(xorstr_("Control Settings"));
+				ImGui::PopStyleColor();
+				ImGui::Separator();
+				ImGui::Spacing();
+
+				render_hotkey_selector(xorstr_("Aim Key"), &g_settings.aim_key, 200.f, false);
+
+				// Controller support with modern styling
 				if (is_controller_connected())
 				{
-					ImGui::Text(xorstr_("Controller detected, additional settings added"));
+					ImGui::Spacing();
+					ImGui::PushStyleColor(ImGuiCol_Text, ImVec4(0.80f, 0.60f, 1.00f, 1.00f));
+					ImGui::Text(xorstr_("🎮 Controller Detected"));
+					ImGui::PopStyleColor();
+					ImGui::Spacing();
 
-					ImGui::Checkbox(xorstr_("Use left trigger (LT) for aiming"), &g_settings.aim_support_controller);
-
+					ImGui::Checkbox(xorstr_("Use Left Trigger (LT) for Aiming"), &g_settings.aim_support_controller);
 					ImGui::Spacing();
 				}
 
+				ImGui::Spacing();
 				ImGui::Separator();
+				ImGui::Spacing();
 				
+				// Target selection with modern layout
+				ImGui::PushStyleColor(ImGuiCol_Text, ImVec4(0.60f, 0.80f, 1.00f, 1.00f));
 				ImGui::Text(xorstr_("Target Selection"));
+				ImGui::PopStyleColor();
+				ImGui::Separator();
+				ImGui::Spacing();
 
 				std::vector<const char*> obfuscated_items;
 				obfuscated_items.push_back(xorstr_("FOV"));
@@ -211,16 +315,16 @@ namespace big
 
 				const char** target_methods = obfuscated_items.data();
 				ImGui::PushItemWidth(300.f);
-				ImGui::Combo(xorstr_("Target selection method##Aimbot"), &g_settings.aim_target_selection, target_methods, (int)obfuscated_items.size());
+				ImGui::Combo(xorstr_("Target Selection Method##Aimbot"), &g_settings.aim_target_selection, target_methods, (int)obfuscated_items.size());
 				ImGui::PopItemWidth();
 
-				ImGui::Checkbox(xorstr_("Auto aim bone"), &g_settings.aim_auto_bone);
+				ImGui::Checkbox(xorstr_("Auto Aim Bone"), &g_settings.aim_auto_bone);
 				if (ImGui::IsItemHovered())
 					ImGui::SetTooltip(xorstr_("Automatically selects the best bone for shooting (head -> torso -> hips)"));
 
 				if (!g_settings.aim_auto_bone)
 				{
-					ImGui::Text(xorstr_("Aim bone"));
+					ImGui::Text(xorstr_("Aim Bone"));
 
 					static const char* text = g_settings.aim_bone < bone_map.size() ? bone_map[(UpdatePoseResultData::BONES)g_settings.aim_bone].c_str() : xorstr_("Unknown");
 					ImGui::PushItemWidth(300.f);
@@ -244,29 +348,45 @@ namespace big
 					}
 				}
 
+				ImGui::Spacing();
+				ImGui::Separator();
+				ImGui::Spacing();
+
+				// Timing settings with modern grouping
+				ImGui::BeginGroup();
+				ImGui::PushStyleColor(ImGuiCol_Text, ImVec4(1.00f, 0.80f, 0.40f, 1.00f));
+				ImGui::Text(xorstr_("⚡ Soldier Timing"));
+				ImGui::PopStyleColor();
 				ImGui::Separator();
 
-				ImGui::Text(xorstr_("Soldier"));
-
 				ImGui::PushItemWidth(300.f);
-				ImGui::SliderFloat(xorstr_("Minimum time to target (sec)##Aimbot"), &g_settings.aim_min_time_to_target, 0.01f, g_settings.aim_max_time_to_target);
+				ImGui::SliderFloat(xorstr_("Minimum Time to Target (sec)##Aimbot"), &g_settings.aim_min_time_to_target, 0.01f, g_settings.aim_max_time_to_target);
 
 				if (g_settings.aim_min_time_to_target < 0.15f)
 					ImGui::WarningTooltip(xorstr_("Having this option that low will most likely get you banned."));
 
-				ImGui::SliderFloat(xorstr_("Maximum time to target (sec)##Aimbot"), &g_settings.aim_max_time_to_target, g_settings.aim_min_time_to_target, 10.f);
+				ImGui::SliderFloat(xorstr_("Maximum Time to Target (sec)##Aimbot"), &g_settings.aim_max_time_to_target, g_settings.aim_min_time_to_target, 10.f);
 
 				if (g_settings.aim_max_time_to_target < 0.2f)
 					ImGui::WarningTooltip(xorstr_("Having this option that low will most likely get you banned."));
 
 				ImGui::PopItemWidth();
+				ImGui::EndGroup();
 
-				ImGui::Text(xorstr_("Vehicle"));
+				ImGui::SameLine();
+
+				ImGui::BeginGroup();
+				ImGui::PushStyleColor(ImGuiCol_Text, ImVec4(0.80f, 0.40f, 1.00f, 1.00f));
+				ImGui::Text(xorstr_("🚗 Vehicle Settings"));
+				ImGui::PopStyleColor();
+				ImGui::Separator();
 
 				ImGui::PushItemWidth(300.f);
-				ImGui::SliderFloat(xorstr_("Smoothing factor##Aimbot"), &g_settings.aim_vehicle_smooth, 0.f, 20.f);
+				ImGui::SliderFloat(xorstr_("Smoothing Factor##Aimbot"), &g_settings.aim_vehicle_smooth, 0.f, 20.f);
 				ImGui::PopItemWidth();
+				ImGui::EndGroup();
 
+				ImGui::Spacing();
 				ImGui::Separator();
 
 				ImGui::EndTabItem();
@@ -551,6 +671,50 @@ namespace big
 				ImGui::Checkbox(xorstr_("Draw distance"), &g_settings.esp_draw_distance);
 				ImGui::SameLine();
 				ImGui::Checkbox(xorstr_("Draw vehicle tag"), &g_settings.esp_draw_vehicle_tag);
+
+				ImGui::Checkbox(xorstr_("Draw 3D health bar"), &g_settings.esp_draw_health_bar_3d);
+				if (ImGui::IsItemHovered())
+					ImGui::SetTooltip(xorstr_("Draws a 3D health bar above enemies showing their health percentage."));
+				ImGui::SameLine();
+				ImGui::Checkbox(xorstr_("Draw weapon indicator"), &g_settings.esp_draw_weapon_indicator);
+				if (ImGui::IsItemHovered())
+					ImGui::SetTooltip(xorstr_("Shows the weapon name and a small indicator below enemies."));
+
+				ImGui::Checkbox(xorstr_("Draw radar system"), &g_settings.esp_draw_radar);
+				if (ImGui::IsItemHovered())
+					ImGui::SetTooltip(xorstr_("Shows a radar system with enemy positions for better situational awareness."));
+
+				ImGui::Checkbox(xorstr_("Draw hit markers"), &g_settings.esp_draw_hit_markers);
+				if (ImGui::IsItemHovered())
+					ImGui::SetTooltip(xorstr_("Shows hit markers when you hit enemies."));
+
+				ImGui::Checkbox(xorstr_("Draw bullet tracers"), &g_settings.esp_draw_bullet_tracers);
+				if (ImGui::IsItemHovered())
+					ImGui::SetTooltip(xorstr_("Shows bullet tracers for better visibility of shots."));
+
+				ImGui::Checkbox(xorstr_("Draw visibility indicators"), &g_settings.esp_draw_visibility_indicators);
+				if (ImGui::IsItemHovered())
+					ImGui::SetTooltip(xorstr_("Shows indicators for visible and occluded enemies."));
+
+				ImGui::Checkbox(xorstr_("Dynamic Lighting Effects"), &g_settings.esp_draw_dynamic_lighting);
+				if (ImGui::IsItemHovered())
+					ImGui::SetTooltip(xorstr_("Adds dynamic lighting effects to the ESP."));
+
+				ImGui::Checkbox(xorstr_("Advanced Health Indicators"), &g_settings.esp_draw_advanced_health);
+				if (ImGui::IsItemHovered())
+					ImGui::SetTooltip(xorstr_("Adds advanced health indicators to the ESP."));
+
+				ImGui::Checkbox(xorstr_("Advanced Weapon Indicators"), &g_settings.esp_draw_advanced_weapon);
+				if (ImGui::IsItemHovered())
+					ImGui::SetTooltip(xorstr_("Adds advanced weapon indicators to the ESP."));
+
+				ImGui::Checkbox(xorstr_("Advanced Distance Indicators"), &g_settings.esp_draw_advanced_distance);
+				if (ImGui::IsItemHovered())
+					ImGui::SetTooltip(xorstr_("Adds advanced distance indicators to the ESP."));
+
+				ImGui::Checkbox(xorstr_("Advanced Visibility Indicators"), &g_settings.esp_draw_advanced_visibility);
+				if (ImGui::IsItemHovered())
+					ImGui::SetTooltip(xorstr_("Adds advanced visibility indicators to the ESP."));
 
 				ImGui::Spacing();
 
@@ -1280,5 +1444,149 @@ namespace big
 			ImGui::EndTabBar();
 		}
 		ImGui::End();
+	}
+	
+	// Modern UI enhancement functions
+	void gui::setup_modern_colors()
+	{
+		// Enhanced color palette for better visual hierarchy
+		ImGui::GetStyle().Colors[ImGuiCol_WindowBg] = ImVec4(0.08f, 0.08f, 0.12f, 0.95f);
+		ImGui::GetStyle().Colors[ImGuiCol_ChildBg] = ImVec4(0.06f, 0.06f, 0.10f, 0.90f);
+		ImGui::GetStyle().Colors[ImGuiCol_PopupBg] = ImVec4(0.10f, 0.10f, 0.14f, 0.98f);
+		
+		// Enhanced button colors
+		ImGui::GetStyle().Colors[ImGuiCol_Button] = ImVec4(0.15f, 0.15f, 0.25f, 0.80f);
+		ImGui::GetStyle().Colors[ImGuiCol_ButtonHovered] = ImVec4(0.20f, 0.20f, 0.35f, 0.90f);
+		ImGui::GetStyle().Colors[ImGuiCol_ButtonActive] = ImVec4(0.25f, 0.25f, 0.45f, 1.00f);
+		
+		// Enhanced checkbox colors
+		ImGui::GetStyle().Colors[ImGuiCol_CheckMark] = ImVec4(0.00f, 0.80f, 0.40f, 1.00f);
+		ImGui::GetStyle().Colors[ImGuiCol_FrameBg] = ImVec4(0.12f, 0.12f, 0.18f, 0.85f);
+		ImGui::GetStyle().Colors[ImGuiCol_FrameBgHovered] = ImVec4(0.15f, 0.15f, 0.22f, 0.90f);
+		ImGui::GetStyle().Colors[ImGuiCol_FrameBgActive] = ImVec4(0.18f, 0.18f, 0.25f, 0.95f);
+		
+		// Enhanced slider colors
+		ImGui::GetStyle().Colors[ImGuiCol_SliderGrab] = ImVec4(0.00f, 0.70f, 0.30f, 1.00f);
+		ImGui::GetStyle().Colors[ImGuiCol_SliderGrabActive] = ImVec4(0.00f, 0.80f, 0.40f, 1.00f);
+		
+		// Enhanced text colors
+		ImGui::GetStyle().Colors[ImGuiCol_Text] = ImVec4(0.90f, 0.90f, 0.95f, 1.00f);
+		ImGui::GetStyle().Colors[ImGuiCol_TextDisabled] = ImVec4(0.50f, 0.50f, 0.55f, 1.00f);
+		
+		// Enhanced header colors
+		ImGui::GetStyle().Colors[ImGuiCol_Header] = ImVec4(0.15f, 0.15f, 0.25f, 0.80f);
+		ImGui::GetStyle().Colors[ImGuiCol_HeaderHovered] = ImVec4(0.20f, 0.20f, 0.35f, 0.90f);
+		ImGui::GetStyle().Colors[ImGuiCol_HeaderActive] = ImVec4(0.25f, 0.25f, 0.45f, 1.00f);
+		
+		// Enhanced separator colors
+		ImGui::GetStyle().Colors[ImGuiCol_Separator] = ImVec4(0.30f, 0.30f, 0.40f, 0.60f);
+		ImGui::GetStyle().Colors[ImGuiCol_SeparatorHovered] = ImVec4(0.40f, 0.40f, 0.50f, 0.80f);
+		ImGui::GetStyle().Colors[ImGuiCol_SeparatorActive] = ImVec4(0.50f, 0.50f, 0.60f, 1.00f);
+		
+		// Enhanced scrollbar colors
+		ImGui::GetStyle().Colors[ImGuiCol_ScrollbarBg] = ImVec4(0.08f, 0.08f, 0.12f, 0.60f);
+		ImGui::GetStyle().Colors[ImGuiCol_ScrollbarGrab] = ImVec4(0.20f, 0.20f, 0.30f, 0.80f);
+		ImGui::GetStyle().Colors[ImGuiCol_ScrollbarGrabHovered] = ImVec4(0.25f, 0.25f, 0.35f, 0.90f);
+		ImGui::GetStyle().Colors[ImGuiCol_ScrollbarGrabActive] = ImVec4(0.30f, 0.30f, 0.40f, 1.00f);
+	}
+	
+	// Enhanced tooltip system with better formatting
+	void gui::draw_enhanced_tooltip(const char* text, const char* details)
+	{
+		if (ImGui::IsItemHovered())
+		{
+			ImGui::BeginTooltip();
+			ImGui::PushTextWrapPos(ImGui::GetFontSize() * 35.0f);
+			
+			// Main tooltip text
+			ImGui::TextColored(ImVec4(0.90f, 0.90f, 0.95f, 1.00f), "%s", text);
+			
+			// Additional details if provided
+			if (details)
+			{
+				ImGui::Spacing();
+				ImGui::Separator();
+				ImGui::TextColored(ImVec4(0.70f, 0.70f, 0.80f, 1.00f), "%s", details);
+			}
+			
+			ImGui::PopTextWrapPos();
+			ImGui::EndTooltip();
+		}
+	}
+	
+	// Modern status indicator with enhanced visual feedback
+	void gui::draw_modern_status_indicator(const char* label, bool is_active, const ImVec4& active_color)
+	{
+		ImGui::BeginGroup();
+		
+		// Status indicator circle
+		ImVec2 pos = ImGui::GetCursorScreenPos();
+		ImVec2 circle_pos(pos.x + 8, pos.y + ImGui::GetTextLineHeight() / 2);
+		
+		ImColor circle_color = is_active ? ImColor(active_color) : ImColor(0.5f, 0.5f, 0.5f, 0.5f);
+		ImGui::GetWindowDrawList()->AddCircleFilled(circle_pos, 4.0f, circle_color);
+		
+		// Add subtle glow effect for active status
+		if (is_active)
+		{
+			ImGui::GetWindowDrawList()->AddCircle(circle_pos, 6.0f, ImColor(active_color.x, active_color.y, active_color.z, 0.3f));
+		}
+		
+		ImGui::SameLine(20);
+		ImGui::TextColored(is_active ? ImVec4(0.9f, 0.9f, 0.95f, 1.0f) : ImVec4(0.6f, 0.6f, 0.65f, 1.0f), "%s", label);
+		
+		ImGui::EndGroup();
+	}
+	
+	// Enhanced separator with gradient effect
+	void gui::draw_modern_separator(const char* label)
+	{
+		ImGui::Spacing();
+		
+		if (label)
+		{
+			ImGui::TextColored(ImVec4(0.7f, 0.7f, 0.8f, 1.0f), "%s", label);
+			ImGui::Spacing();
+		}
+		
+		ImVec2 line_start = ImGui::GetCursorScreenPos();
+		ImVec2 line_end(line_start.x + ImGui::GetContentRegionAvail().x, line_start.y);
+		
+		// Draw gradient separator line
+		ImGui::GetWindowDrawList()->AddRectFilledMultiColor(
+			line_start, line_end,
+			ImColor(0.3f, 0.3f, 0.4f, 0.0f),
+			ImColor(0.3f, 0.3f, 0.4f, 0.6f),
+			ImColor(0.3f, 0.3f, 0.4f, 0.6f),
+			ImColor(0.3f, 0.3f, 0.4f, 0.0f)
+		);
+		
+		ImGui::Spacing();
+	}
+	
+	// Modern button with enhanced visual feedback
+	bool gui::draw_modern_button(const char* label, const ImVec2& size)
+	{
+		ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0.15f, 0.15f, 0.25f, 0.80f));
+		ImGui::PushStyleColor(ImGuiCol_ButtonHovered, ImVec4(0.20f, 0.20f, 0.35f, 0.90f));
+		ImGui::PushStyleColor(ImGuiCol_ButtonActive, ImVec4(0.25f, 0.25f, 0.45f, 1.00f));
+		
+		bool clicked = ImGui::Button(label, size);
+		
+		ImGui::PopStyleColor(3);
+		
+		// Add subtle glow effect on hover
+		if (ImGui::IsItemHovered())
+		{
+			ImVec2 item_min = ImGui::GetItemRectMin();
+			ImVec2 item_max = ImGui::GetItemRectMax();
+			ImGui::GetWindowDrawList()->AddRect(
+				item_min, item_max,
+				ImColor(0.0f, 0.7f, 0.3f, 0.3f),
+				4.0f, 0, 2.0f
+			);
+		}
+		
+		return clicked;
 	}
 }
