@@ -15,6 +15,47 @@
 
 namespace ImGui
 {
+	// Modern UI Components
+	inline void ModernProgressBar(float fraction, const ImVec2& size_arg = ImVec2(0, 0), const char* overlay = nullptr)
+	{
+		// Use a simpler approach that doesn't rely on complex ImGui internals
+		ImGui::ProgressBar(fraction, size_arg, overlay);
+	}
+
+	inline void StatusIndicator(const char* label, bool is_active, const ImVec4& active_color = ImVec4(0.2f, 0.8f, 0.4f, 1.0f), const ImVec4& inactive_color = ImVec4(0.5f, 0.5f, 0.5f, 1.0f))
+	{
+		ImGui::SameLine();
+		ImGui::PushStyleColor(ImGuiCol_Text, is_active ? active_color : inactive_color);
+		ImGui::Text(is_active ? xorstr_("●") : xorstr_("○"));
+		ImGui::PopStyleColor();
+		
+		if (label)
+		{
+			ImGui::SameLine();
+			ImGui::Text(xorstr_("%s"), label);
+		}
+	}
+
+	inline void ModernSeparator(const char* label = nullptr)
+	{
+		ImGui::Spacing();
+		if (label)
+		{
+			ImGui::Text(xorstr_("%s"), label);
+			ImGui::SameLine();
+		}
+		ImGui::Separator();
+		ImGui::Spacing();
+	}
+
+	inline void ModernButton(const char* label, const ImVec2& size = ImVec2(0, 0))
+	{
+		ImGui::PushStyleVar(ImGuiStyleVar_FrameRounding, 4.0f);
+		ImGui::PushStyleVar(ImGuiStyleVar_FramePadding, ImVec2(12.0f, 8.0f));
+		ImGui::Button(label, size);
+		ImGui::PopStyleVar(2);
+	}
+
 	inline void ProcessFormattedText(const std::string_view& text)
 	{
 		const char* start = text.data();
