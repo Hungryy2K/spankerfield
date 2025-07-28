@@ -43,7 +43,7 @@ namespace plugins
 		// Apply spoof if enabled and player is alive
 		if (g_settings.spoof_name && local_soldier->IsAlive())
 		{
-			if (strcmp(local_player->m_Name, g_settings.spoofed_name) != NULL)
+			if (strcmp(local_player->m_Name, g_settings.spoofed_name) != 0)
 			{
 				strcpy(local_player->m_Name, g_settings.spoofed_name);
 				strcpy(reinterpret_cast<char*>(local_player) + 0x0040, g_settings.spoofed_name);
