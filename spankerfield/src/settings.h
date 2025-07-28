@@ -115,6 +115,17 @@ namespace big
 		int esp_health_location{ 1 };
 		bool esp_draw_name{ false };
 		bool esp_draw_distance{ false };
+		bool esp_draw_health_bar_3d{ false };
+		bool esp_draw_weapon_indicator{ false };
+		bool esp_draw_radar{ false }; // New radar system
+		bool esp_draw_hit_markers{ false }; // New hit marker system
+		bool esp_draw_bullet_tracers{ false }; // New bullet tracer system
+		bool esp_draw_visibility_indicators{ false }; // New visibility indicators
+		bool esp_draw_dynamic_lighting{ false };
+		bool esp_draw_advanced_health{ false };
+		bool esp_draw_advanced_weapon{ false };
+		bool esp_draw_advanced_distance{ false };
+		bool esp_draw_advanced_visibility{ false };
 		bool esp_draw_vehicle_tag{ true };
 		float esp_text_spacing{ 10.8f };
 		int esp_text_position{ 0 };
@@ -366,6 +377,29 @@ namespace big
 			g_settings.esp_health_location = j[xorstr_("settings")][xorstr_("esp_health_location")];
 			g_settings.esp_draw_name = j[xorstr_("settings")][xorstr_("esp_draw_name")];
 			g_settings.esp_draw_distance = j[xorstr_("settings")][xorstr_("esp_draw_distance")];
+			// Load new ESP settings with null checks to prevent JSON errors
+			if (j[xorstr_("settings")].contains(xorstr_("esp_draw_health_bar_3d")) && !j[xorstr_("settings")][xorstr_("esp_draw_health_bar_3d")].is_null())
+				g_settings.esp_draw_health_bar_3d = j[xorstr_("settings")][xorstr_("esp_draw_health_bar_3d")];
+			if (j[xorstr_("settings")].contains(xorstr_("esp_draw_weapon_indicator")) && !j[xorstr_("settings")][xorstr_("esp_draw_weapon_indicator")].is_null())
+				g_settings.esp_draw_weapon_indicator = j[xorstr_("settings")][xorstr_("esp_draw_weapon_indicator")];
+			if (j[xorstr_("settings")].contains(xorstr_("esp_draw_radar")) && !j[xorstr_("settings")][xorstr_("esp_draw_radar")].is_null())
+				g_settings.esp_draw_radar = j[xorstr_("settings")][xorstr_("esp_draw_radar")]; // New radar system
+			if (j[xorstr_("settings")].contains(xorstr_("esp_draw_hit_markers")) && !j[xorstr_("settings")][xorstr_("esp_draw_hit_markers")].is_null())
+				g_settings.esp_draw_hit_markers = j[xorstr_("settings")][xorstr_("esp_draw_hit_markers")]; // New hit marker system
+					if (j[xorstr_("settings")].contains(xorstr_("esp_draw_bullet_tracers")) && !j[xorstr_("settings")][xorstr_("esp_draw_bullet_tracers")].is_null())
+			g_settings.esp_draw_bullet_tracers = j[xorstr_("settings")][xorstr_("esp_draw_bullet_tracers")]; // New bullet tracer system
+		if (j[xorstr_("settings")].contains(xorstr_("esp_draw_visibility_indicators")) && !j[xorstr_("settings")][xorstr_("esp_draw_visibility_indicators")].is_null())
+			g_settings.esp_draw_visibility_indicators = j[xorstr_("settings")][xorstr_("esp_draw_visibility_indicators")]; // New visibility indicators
+		if (j[xorstr_("settings")].contains(xorstr_("esp_draw_dynamic_lighting")) && !j[xorstr_("settings")][xorstr_("esp_draw_dynamic_lighting")].is_null())
+			g_settings.esp_draw_dynamic_lighting = j[xorstr_("settings")][xorstr_("esp_draw_dynamic_lighting")];
+		if (j[xorstr_("settings")].contains(xorstr_("esp_draw_advanced_health")) && !j[xorstr_("settings")][xorstr_("esp_draw_advanced_health")].is_null())
+			g_settings.esp_draw_advanced_health = j[xorstr_("settings")][xorstr_("esp_draw_advanced_health")];
+		if (j[xorstr_("settings")].contains(xorstr_("esp_draw_advanced_weapon")) && !j[xorstr_("settings")][xorstr_("esp_draw_advanced_weapon")].is_null())
+			g_settings.esp_draw_advanced_weapon = j[xorstr_("settings")][xorstr_("esp_draw_advanced_weapon")];
+		if (j[xorstr_("settings")].contains(xorstr_("esp_draw_advanced_distance")) && !j[xorstr_("settings")][xorstr_("esp_draw_advanced_distance")].is_null())
+			g_settings.esp_draw_advanced_distance = j[xorstr_("settings")][xorstr_("esp_draw_advanced_distance")];
+		if (j[xorstr_("settings")].contains(xorstr_("esp_draw_advanced_visibility")) && !j[xorstr_("settings")][xorstr_("esp_draw_advanced_visibility")].is_null())
+			g_settings.esp_draw_advanced_visibility = j[xorstr_("settings")][xorstr_("esp_draw_advanced_visibility")];
 			g_settings.esp_draw_vehicle_tag = j[xorstr_("settings")][xorstr_("esp_draw_vehicle_tag")];
 			g_settings.esp_text_spacing = j[xorstr_("settings")][xorstr_("esp_text_spacing")];
 			g_settings.esp_text_position = j[xorstr_("settings")][xorstr_("esp_text_position")];
