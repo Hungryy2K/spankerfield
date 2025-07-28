@@ -26,8 +26,8 @@
 #define OFFSET_TAKESCREENSHOT         0x14015D4F0 // 48 8B C4 55 48 8D 68 A1 48 81 EC ? ? ? ? 48 C7 45 ? ? ? ? ? 48 89 58 08 48 89 78 10 48 8B D9 8B 05 ? ? ? ?
 #define OFFSET_SOMESCOREMANAGER       0x1423822D8 // 48 8B 05 ? ? ? ? 4C 8B 60 18 (https://www.unknowncheats.me/forum/battlefield-4/133815-getting-clientplayerscore-k-d-etc-without-calling-game-function.html + https://www.unknowncheats.me/forum/1044753-post19.html)
 #define OFFSET_PBSSRETURN			  0x140CBCD29
-#define MAX_PLAYERS                            70
-#define MAX_EXPLOSIVES                        128
+constexpr int MAX_PLAYERS = 70;
+constexpr int MAX_EXPLOSIVES = 128;
 
 constexpr uintptr_t PTR_MIN_VALUE = 0x10000;
 constexpr uintptr_t PTR_MAX_VALUE = 0x000F000000000000;
@@ -185,15 +185,15 @@ struct ConstWeakPtr
 	{
 		__try {
 			if (!this)
-				return NULL;
+				return nullptr;
 
 			if (!this->m_pToken)
-				return NULL;
+				return nullptr;
 
 			if (!this->m_pToken->m_pRealPtr)
-				return NULL;
+				return nullptr;
 
-			return (T*)((DWORD_PTR)this->m_pToken->m_pRealPtr - sizeof(void*));
+			return reinterpret_cast<T*>(reinterpret_cast<DWORD_PTR>(this->m_pToken->m_pRealPtr) - sizeof(void*));
 		}
 		__except (EXCEPTION_EXECUTE_HANDLER) {
 			return nullptr;
