@@ -33,17 +33,207 @@ namespace plugins
         auto pos_1 = Vector2(bone_1_vec.x, bone_1_vec.y);
         auto pos_2 = Vector2(bone_2_vec.x, bone_2_vec.y);
 
+        // Modern bone drawing with enhanced visual effects
         if (dots)
         {
-            m_drawing->DrawFillArea(pos_1.x, pos_1.y, 3.5f, 3.5f, color);
-            m_drawing->DrawFillArea(pos_2.x, pos_2.y, 3.5f, 3.5f, color);
+            // Enhanced bone dots with gradient effect
+            m_drawing->DrawFillArea(pos_1.x, pos_1.y, 4.0f, 4.0f, color);
+            m_drawing->DrawFillArea(pos_2.x, pos_2.y, 4.0f, 4.0f, color);
+            
+            // Add subtle glow effect
+            ImColor glow_color = ImColor(color.Value.x * 0.7f, color.Value.y * 0.7f, color.Value.z * 0.7f, color.Value.w * 0.5f);
+            m_drawing->DrawFillArea(pos_1.x, pos_1.y, 6.0f, 6.0f, glow_color);
+            m_drawing->DrawFillArea(pos_2.x, pos_2.y, 6.0f, 6.0f, glow_color);
         }
 
-        m_drawing->AddLine(ImVec2(pos_1.x, pos_1.y), ImVec2(pos_2.x, pos_2.y), color);
+        // Enhanced bone line with thickness variation
+        float line_thickness = 2.0f;
+        m_drawing->AddLine(ImVec2(pos_1.x, pos_1.y), ImVec2(pos_2.x, pos_2.y), color, line_thickness);
+        
+        // Add subtle glow line
+        ImColor glow_line_color = ImColor(color.Value.x * 0.6f, color.Value.y * 0.6f, color.Value.z * 0.6f, color.Value.w * 0.3f);
+        m_drawing->AddLine(ImVec2(pos_1.x, pos_1.y), ImVec2(pos_2.x, pos_2.y), glow_line_color, line_thickness + 1.0f);
     }
 
     std::map<uint64_t, std::string> streamer_personas{};
     
+    // Enhanced ESP Features - New Visual Effects (Placeholder for future implementation)
+    // Note: These functions will be implemented with proper API calls in future updates
+    
+    // Radar system for better situational awareness
+    void draw_radar_system(const Vector3& local_pos, const std::vector<std::pair<Vector3, ImColor>>& enemies)
+    {
+        const float radar_size = 150.0f;
+        const float radar_range = 200.0f;
+        const ImVec2 radar_pos(50.0f, 50.0f);
+        
+        // Draw radar background
+        ImColor radar_bg = ImColor(0.1f, 0.1f, 0.1f, 0.8f);
+        m_drawing->AddRectFilled(radar_pos, ImVec2(radar_pos.x + radar_size, radar_pos.y + radar_size), radar_bg);
+        m_drawing->AddRect(radar_pos, ImVec2(radar_pos.x + radar_size, radar_pos.y + radar_size), ImColor(0.3f, 0.3f, 0.3f, 1.0f), 0.0f);
+        
+        // Draw radar center (player position)
+        ImVec2 radar_center(radar_pos.x + radar_size / 2.0f, radar_pos.y + radar_size / 2.0f);
+        m_drawing->AddCircleFilled(radar_center, 3.0f, ImColor(0.0f, 1.0f, 0.0f, 1.0f));
+        
+        // Draw enemies on radar
+        for (const auto& enemy : enemies)
+        {
+            Vector3 relative_pos = enemy.first - local_pos;
+            if (relative_pos.Length() <= radar_range)
+            {
+                float normalized_x = (relative_pos.x / radar_range) * (radar_size / 2.0f);
+                float normalized_z = (relative_pos.z / radar_range) * (radar_size / 2.0f);
+                
+                ImVec2 enemy_pos(radar_center.x + normalized_x, radar_center.y + normalized_z);
+                m_drawing->AddCircleFilled(enemy_pos, 2.0f, enemy.second);
+            }
+        }
+    }
+    
+    // Hit marker system
+    void draw_hit_marker(const Vector2& screen_pos, bool is_headshot = false)
+    {
+        const float marker_size = is_headshot ? 20.0f : 15.0f;
+        const float thickness = is_headshot ? 3.0f : 2.0f;
+        ImColor marker_color = is_headshot ? ImColor(1.0f, 0.0f, 0.0f, 1.0f) : ImColor(1.0f, 1.0f, 0.0f, 1.0f);
+        
+        // Draw crosshair-style hit marker
+        m_drawing->AddLine(
+            ImVec2(screen_pos.x - marker_size, screen_pos.y),
+            ImVec2(screen_pos.x - marker_size/2, screen_pos.y),
+            marker_color, thickness
+        );
+        m_drawing->AddLine(
+            ImVec2(screen_pos.x + marker_size/2, screen_pos.y),
+            ImVec2(screen_pos.x + marker_size, screen_pos.y),
+            marker_color, thickness
+        );
+        m_drawing->AddLine(
+            ImVec2(screen_pos.x, screen_pos.y - marker_size),
+            ImVec2(screen_pos.x, screen_pos.y - marker_size/2),
+            marker_color, thickness
+        );
+        m_drawing->AddLine(
+            ImVec2(screen_pos.x, screen_pos.y + marker_size/2),
+            ImVec2(screen_pos.x, screen_pos.y + marker_size),
+            marker_color, thickness
+        );
+    }
+    
+    // Enhanced bullet tracer system
+    void draw_bullet_tracers(const Vector3& start_pos, const Vector3& end_pos, const ImColor& color)
+    {
+        Vector2 start_screen, end_screen;
+        if (world_to_screen(start_pos, start_screen) && world_to_screen(end_pos, end_screen))
+        {
+            // Draw main tracer line
+            m_drawing->AddLine(ImVec2(start_screen.x, start_screen.y), ImVec2(end_screen.x, end_screen.y), color, 2.0f);
+            
+            // Draw glow effect
+            ImColor glow_color = ImColor(color.Value.x * 0.6f, color.Value.y * 0.6f, color.Value.z * 0.6f, color.Value.w * 0.3f);
+            m_drawing->AddLine(ImVec2(start_screen.x, start_screen.y), ImVec2(end_screen.x, end_screen.y), glow_color, 4.0f);
+            
+            // Draw impact effect at end point
+            m_drawing->AddCircleFilled(ImVec2(end_screen.x, end_screen.y), 3.0f, color);
+        }
+    }
+    
+    // Enhanced visibility indicators
+    void draw_visibility_indicators(const Vector3& pos, bool is_visible, const ImColor& color)
+    {
+        Vector2 screen_pos;
+        if (!world_to_screen(pos, screen_pos))
+            return;
+            
+        if (is_visible)
+        {
+            // Draw visibility indicator (eye icon)
+            m_drawing->AddCircleFilled(ImVec2(screen_pos.x, screen_pos.y - 35.0f), 8.0f, ImColor(0.0f, 1.0f, 0.0f, 0.8f));
+            m_drawing->AddCircle(ImVec2(screen_pos.x, screen_pos.y - 35.0f), 8.0f, color, 1.0f);
+        }
+        else
+        {
+            // Draw occluded indicator (crossed eye)
+            m_drawing->AddCircleFilled(ImVec2(screen_pos.x, screen_pos.y - 35.0f), 8.0f, ImColor(1.0f, 0.0f, 0.0f, 0.8f));
+            m_drawing->AddCircle(ImVec2(screen_pos.x, screen_pos.y - 35.0f), 8.0f, color, 1.0f);
+        }
+    }
+    
+    // Distance indicator function
+    void draw_distance_indicator(const Vector3& world_pos, const ImColor& color, float distance)
+    {
+        Vector2 screen_pos;
+        if (!world_to_screen(world_pos, screen_pos))
+            return;
+            
+        // Format distance text
+        char distance_text[32];
+        if (distance >= 1000.0f)
+            sprintf_s(distance_text, "%.1fkm", distance / 1000.0f);
+        else
+            sprintf_s(distance_text, "%.0fm", distance);
+            
+        // Draw distance text with shadow
+        m_drawing->AddText(screen_pos.x, screen_pos.y - 20.0f, color, 12.0f, FL_CENTER_X | FL_SHADOW, distance_text);
+        
+        // Draw small indicator dot
+        m_drawing->AddCircleFilled(ImVec2(screen_pos.x, screen_pos.y - 25.0f), 2.0f, color);
+    }
+    
+    // 3D Health bar function
+    void draw_health_bar_3d(const TransformAABBStruct& transform, float health_percentage, const ImColor& color)
+    {
+        Vector3 pos = Vector3(transform.Transform.m[3]);
+        Vector2 screen_pos;
+        if (!world_to_screen(pos, screen_pos))
+            return;
+            
+        // Health bar dimensions
+        float bar_width = 40.0f;
+        float bar_height = 4.0f;
+        float bar_x = screen_pos.x - bar_width / 2.0f;
+        float bar_y = screen_pos.y - 30.0f;
+        
+        // Background bar
+        ImColor bg_color = ImColor(0.1f, 0.1f, 0.1f, 0.8f);
+        m_drawing->AddRectFilled(ImVec2(bar_x, bar_y), ImVec2(bar_x + bar_width, bar_y + bar_height), bg_color);
+        
+        // Health bar
+        float health_width = bar_width * health_percentage;
+        ImColor health_color = ImColor(
+            (1.0f - health_percentage) * color.Value.x + health_percentage * 0.2f,
+            health_percentage * color.Value.y,
+            health_percentage * color.Value.z,
+            color.Value.w
+        );
+        m_drawing->AddRectFilled(ImVec2(bar_x, bar_y), ImVec2(bar_x + health_width, bar_y + bar_height), health_color);
+        
+        // Border
+        m_drawing->AddRect(ImVec2(bar_x, bar_y), ImVec2(bar_x + bar_width, bar_y + bar_height), color, 0.0f);
+    }
+    
+    // Weapon indicator function
+    void draw_weapon_indicator(ClientSoldierEntity* soldier, const ImColor& color)
+    {
+        if (!IsValidPtr(soldier))
+            return;
+            
+        // Get soldier position from transform (same as in main ESP function)
+        TransformAABBStruct transform = get_transform(soldier);
+        Vector3 soldier_pos = Vector3(transform.Transform.m[3]);
+            
+        Vector2 screen_pos;
+        if (!world_to_screen(soldier_pos, screen_pos))
+            return;
+            
+        // Draw generic weapon indicator (since weapon name access is not available in SDK)
+        m_drawing->AddText(screen_pos.x, screen_pos.y + 15.0f, color, 10.0f, FL_CENTER_X | FL_SHADOW, "WEAPON");
+        
+        // Draw small weapon icon (dot)
+        m_drawing->AddCircleFilled(ImVec2(screen_pos.x, screen_pos.y + 25.0f), 1.5f, color);
+    }
+
     void draw_3d_box(const TransformAABBStruct& transform, const ImColor& color, float thickness = 1.0f)
     {
         // Get position and size of the object
@@ -70,23 +260,47 @@ namespace plugins
                 return; // If at least one corner is not visible, don't draw the box
         }
         
-        // Draw bottom face (0-1-2-3)
-        m_drawing->AddLine(ImVec2(screen_corners[0].x, screen_corners[0].y), ImVec2(screen_corners[1].x, screen_corners[1].y), color, thickness);
-        m_drawing->AddLine(ImVec2(screen_corners[1].x, screen_corners[1].y), ImVec2(screen_corners[2].x, screen_corners[2].y), color, thickness);
-        m_drawing->AddLine(ImVec2(screen_corners[2].x, screen_corners[2].y), ImVec2(screen_corners[3].x, screen_corners[3].y), color, thickness);
-        m_drawing->AddLine(ImVec2(screen_corners[3].x, screen_corners[3].y), ImVec2(screen_corners[0].x, screen_corners[0].y), color, thickness);
+        // Enhanced 3D box drawing with modern effects and glow
+        float enhanced_thickness = thickness * 2.0f;
         
-        // Draw top face (4-5-6-7)
-        m_drawing->AddLine(ImVec2(screen_corners[4].x, screen_corners[4].y), ImVec2(screen_corners[5].x, screen_corners[5].y), color, thickness);
-        m_drawing->AddLine(ImVec2(screen_corners[5].x, screen_corners[5].y), ImVec2(screen_corners[6].x, screen_corners[6].y), color, thickness);
-        m_drawing->AddLine(ImVec2(screen_corners[6].x, screen_corners[6].y), ImVec2(screen_corners[7].x, screen_corners[7].y), color, thickness);
-        m_drawing->AddLine(ImVec2(screen_corners[7].x, screen_corners[7].y), ImVec2(screen_corners[4].x, screen_corners[4].y), color, thickness);
+        // Create glow effect with multiple layers
+        ImColor inner_glow = ImColor(color.Value.x * 0.4f, color.Value.y * 0.4f, color.Value.z * 0.4f, color.Value.w * 0.2f);
+        ImColor outer_glow = ImColor(color.Value.x * 0.2f, color.Value.y * 0.2f, color.Value.z * 0.2f, color.Value.w * 0.1f);
         
-        // Draw vertical lines connecting top and bottom faces
-        m_drawing->AddLine(ImVec2(screen_corners[0].x, screen_corners[0].y), ImVec2(screen_corners[4].x, screen_corners[4].y), color, thickness);
-        m_drawing->AddLine(ImVec2(screen_corners[1].x, screen_corners[1].y), ImVec2(screen_corners[5].x, screen_corners[5].y), color, thickness);
-        m_drawing->AddLine(ImVec2(screen_corners[2].x, screen_corners[2].y), ImVec2(screen_corners[6].x, screen_corners[6].y), color, thickness);
-        m_drawing->AddLine(ImVec2(screen_corners[3].x, screen_corners[3].y), ImVec2(screen_corners[7].x, screen_corners[7].y), color, thickness);
+        // Draw glow layers first (background)
+        float glow_layer_thickness = enhanced_thickness + 3.0f;
+        m_drawing->AddLine(ImVec2(screen_corners[0].x, screen_corners[0].y), ImVec2(screen_corners[1].x, screen_corners[1].y), outer_glow, glow_layer_thickness);
+        m_drawing->AddLine(ImVec2(screen_corners[1].x, screen_corners[1].y), ImVec2(screen_corners[2].x, screen_corners[2].y), outer_glow, glow_layer_thickness);
+        m_drawing->AddLine(ImVec2(screen_corners[2].x, screen_corners[2].y), ImVec2(screen_corners[3].x, screen_corners[3].y), outer_glow, glow_layer_thickness);
+        m_drawing->AddLine(ImVec2(screen_corners[3].x, screen_corners[3].y), ImVec2(screen_corners[0].x, screen_corners[0].y), outer_glow, glow_layer_thickness);
+        
+        // Draw main lines with enhanced visibility
+        m_drawing->AddLine(ImVec2(screen_corners[0].x, screen_corners[0].y), ImVec2(screen_corners[1].x, screen_corners[1].y), color, enhanced_thickness);
+        m_drawing->AddLine(ImVec2(screen_corners[1].x, screen_corners[1].y), ImVec2(screen_corners[2].x, screen_corners[2].y), color, enhanced_thickness);
+        m_drawing->AddLine(ImVec2(screen_corners[2].x, screen_corners[2].y), ImVec2(screen_corners[3].x, screen_corners[3].y), color, enhanced_thickness);
+        m_drawing->AddLine(ImVec2(screen_corners[3].x, screen_corners[3].y), ImVec2(screen_corners[0].x, screen_corners[0].y), color, enhanced_thickness);
+        
+        // Draw top face (4-5-6-7) with enhanced visibility
+        m_drawing->AddLine(ImVec2(screen_corners[4].x, screen_corners[4].y), ImVec2(screen_corners[5].x, screen_corners[5].y), color, enhanced_thickness);
+        m_drawing->AddLine(ImVec2(screen_corners[5].x, screen_corners[5].y), ImVec2(screen_corners[6].x, screen_corners[6].y), color, enhanced_thickness);
+        m_drawing->AddLine(ImVec2(screen_corners[6].x, screen_corners[6].y), ImVec2(screen_corners[7].x, screen_corners[7].y), color, enhanced_thickness);
+        m_drawing->AddLine(ImVec2(screen_corners[7].x, screen_corners[7].y), ImVec2(screen_corners[4].x, screen_corners[4].y), color, enhanced_thickness);
+        
+        // Draw vertical lines connecting top and bottom faces with enhanced visibility
+        m_drawing->AddLine(ImVec2(screen_corners[0].x, screen_corners[0].y), ImVec2(screen_corners[4].x, screen_corners[4].y), color, enhanced_thickness);
+        m_drawing->AddLine(ImVec2(screen_corners[1].x, screen_corners[1].y), ImVec2(screen_corners[5].x, screen_corners[5].y), color, enhanced_thickness);
+        m_drawing->AddLine(ImVec2(screen_corners[2].x, screen_corners[2].y), ImVec2(screen_corners[6].x, screen_corners[6].y), color, enhanced_thickness);
+        m_drawing->AddLine(ImVec2(screen_corners[3].x, screen_corners[3].y), ImVec2(screen_corners[7].x, screen_corners[7].y), color, enhanced_thickness);
+        
+        // Add subtle glow effect for better visibility
+        ImColor glow_color = ImColor(color.Value.x * 0.4f, color.Value.y * 0.4f, color.Value.z * 0.4f, color.Value.w * 0.2f);
+        float glow_thickness = enhanced_thickness + 2.0f;
+        
+        // Draw glow lines for better visibility
+        m_drawing->AddLine(ImVec2(screen_corners[0].x, screen_corners[0].y), ImVec2(screen_corners[1].x, screen_corners[1].y), glow_color, glow_thickness);
+        m_drawing->AddLine(ImVec2(screen_corners[1].x, screen_corners[1].y), ImVec2(screen_corners[2].x, screen_corners[2].y), glow_color, glow_thickness);
+        m_drawing->AddLine(ImVec2(screen_corners[2].x, screen_corners[2].y), ImVec2(screen_corners[3].x, screen_corners[3].y), glow_color, glow_thickness);
+        m_drawing->AddLine(ImVec2(screen_corners[3].x, screen_corners[3].y), ImVec2(screen_corners[0].x, screen_corners[0].y), glow_color, glow_thickness);
     }
 
     void draw_eye_tracer(ClientSoldierEntity* soldier, const ImColor& color, float distance, float thickness = 1.0f)
@@ -184,6 +398,10 @@ namespace plugins
             }
         }
     }
+
+    // Advanced ESP Features - Placeholder for future implementation
+// Note: These functions will be implemented with proper API calls in future updates
+
 
     void draw_esp()
     {
@@ -305,6 +523,63 @@ namespace plugins
                         tracer_color = occluded ? g_settings.esp_eye_tracer_color_occluded : g_settings.esp_eye_tracer_color;
 
                     draw_eye_tracer(soldier, tracer_color, g_settings.esp_eye_tracer_distance, g_settings.esp_eye_tracer_thickness);
+                }
+                
+                // Enhanced ESP Features - Distance Indicator
+                if (g_settings.esp_draw_distance)
+                {
+                    ImColor distance_color;
+                    if (is_friend && !g_settings.esp_friend_color_to_tag)
+                        distance_color = g_settings.esp_friend_color;
+                    else if (teammate)
+                        distance_color = g_settings.esp_teammate_color;
+                    else
+                        distance_color = occluded ? g_settings.esp_3d_box_color_occluded : g_settings.esp_3d_box_color;
+                    
+                    draw_distance_indicator(pos, distance_color, distance);
+                }
+                
+                // Enhanced ESP Features - 3D Health Bar
+                if (g_settings.esp_draw_health_bar_3d && max_health > 0.0f)
+                {
+                    float health_percentage = health / max_health;
+                    ImColor health_color;
+                    if (is_friend && !g_settings.esp_friend_color_to_tag)
+                        health_color = g_settings.esp_friend_color;
+                    else if (teammate)
+                        health_color = g_settings.esp_teammate_color;
+                    else
+                        health_color = occluded ? g_settings.esp_3d_box_color_occluded : g_settings.esp_3d_box_color;
+                    
+                    draw_health_bar_3d(transform, health_percentage, health_color);
+                }
+                
+                // Enhanced ESP Features - Weapon Indicator
+                if (g_settings.esp_draw_weapon_indicator && IsValidPtr(soldier))
+                {
+                    ImColor weapon_color;
+                    if (is_friend && !g_settings.esp_friend_color_to_tag)
+                        weapon_color = g_settings.esp_friend_color;
+                    else if (teammate)
+                        weapon_color = g_settings.esp_teammate_color;
+                    else
+                        weapon_color = occluded ? g_settings.esp_3d_box_color_occluded : g_settings.esp_3d_box_color;
+                    
+                    draw_weapon_indicator(soldier, weapon_color);
+                }
+                
+                // Enhanced ESP Features - Visibility Indicators
+                if (g_settings.esp_draw_visibility_indicators)
+                {
+                    ImColor visibility_color;
+                    if (is_friend && !g_settings.esp_friend_color_to_tag)
+                        visibility_color = g_settings.esp_friend_color;
+                    else if (teammate)
+                        visibility_color = g_settings.esp_teammate_color;
+                    else
+                        visibility_color = occluded ? g_settings.esp_3d_box_color_occluded : g_settings.esp_3d_box_color;
+                    
+                    draw_visibility_indicators(pos, !occluded, visibility_color);
                 }
 
                 if (g_settings.esp_draw_box)
