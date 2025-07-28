@@ -1,6 +1,9 @@
 #include "other.h"
 #include "key_map.h"
 #include "../global.h"
+#include <windows.h>
+#include <tlhelp32.h>
+#include <psapi.h>
 
 namespace big
 {
@@ -209,7 +212,12 @@ namespace big
 
 		do
 		{
-			if (!_tcsicmp(entry.szExeFile, process_name))
+			// Convert wchar_t* to char* for comparison
+			int size_needed = WideCharToMultiByte(CP_UTF8, 0, process_name, -1, NULL, 0, NULL, NULL);
+			std::string process_name_str(size_needed, 0);
+			WideCharToMultiByte(CP_UTF8, 0, process_name, -1, &process_name_str[0], size_needed, NULL, NULL);
+			
+			if (!_stricmp(entry.szExeFile, process_name_str.c_str()))
 			{
 				CloseHandle(snapshot);
 				return true;
