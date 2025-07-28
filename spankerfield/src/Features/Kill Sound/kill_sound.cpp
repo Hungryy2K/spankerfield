@@ -1,6 +1,8 @@
 #include "kill_sound.h"
 #include "../../settings.h"
 #include "../../Utilities/thread_pool.h"
+#include <windows.h>
+#include <mmsystem.h>
 
 using namespace big;
 namespace plugins
@@ -67,7 +69,7 @@ namespace plugins
 						std::wstring wstr_to(size_needed, 0);
 						MultiByteToWideChar(CP_UTF8, 0, file_path.c_str(), (int)file_path.size(), &wstr_to[0], size_needed);
 
-						PlaySound(wstr_to.c_str(), NULL, SND_FILENAME | SND_ASYNC);
+						PlaySoundW(wstr_to.c_str(), NULL, SND_FILENAME | SND_ASYNC);
 					});
 				}
 			}
