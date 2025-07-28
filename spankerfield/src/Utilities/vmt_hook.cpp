@@ -26,12 +26,12 @@ namespace big
 		// Flush the cache to ensure instruction consistency
 		FlushInstructionCache(GetCurrentProcess(), nullptr, 0);
 
-		std::memset(pNewVmt, NULL, vmtLenght * sizeof(std::uintptr_t) + (sizeof(std::uintptr_t) * (EXTRA_SPACE + 1)));
+		std::memset(pNewVmt, 0, vmtLenght * sizeof(std::uintptr_t) + (sizeof(std::uintptr_t) * (EXTRA_SPACE + 1)));
 
 		pClassVmt = nullptr;
 		pNewVmt = nullptr;
 		ppClassBase = nullptr;
-		vmtLenght = NULL;
+		vmtLenght = 0;
 
 		return true;
 	}
@@ -83,7 +83,7 @@ namespace big
 
 		auto vmtSize = vmtLenght * sizeof(std::uintptr_t);
 
-		HMODULE hModule = NULL;
+		HMODULE hModule = nullptr;
 		if (GetModuleHandleExA(GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS |
 			GET_MODULE_HANDLE_EX_FLAG_UNCHANGED_REFCOUNT,
 			(LPCSTR)pClassVmt, &hModule) == NULL)
