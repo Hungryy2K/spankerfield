@@ -21,7 +21,7 @@ BOOL APIENTRY DllMain(HMODULE hmod, DWORD reason, PVOID reserved)
 		g_globals.g_hmodule = hmod;
 		g_globals.g_main_thread = CreateThread(nullptr, 0, [](PVOID) -> DWORD
 		{
-			g_globals.g_hwnd = FindWindowA(xorstr_("Battlefield 4"), NULL);
+			g_globals.g_hwnd = FindWindowA(xorstr_("Battlefield 4"), nullptr);
 			while (!g_globals.g_hwnd)
 				std::this_thread::sleep_for(std::chrono::seconds(1));
 
